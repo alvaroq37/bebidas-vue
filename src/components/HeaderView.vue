@@ -6,6 +6,10 @@ import { RouterLink, useRoute } from 'vue-router'
 const route = useRoute()
 const paginaInicio = computed(() => route.name === 'inicio')
 const bebidasStore = useBebidasStore()
+
+const handleSubmit = () => {
+  bebidasStore.obtenerRecetas()
+}
 </script>
 <template>
   <header class="bg-slate-800" :class="{ header: paginaInicio }">
@@ -20,7 +24,7 @@ const bebidasStore = useBebidasStore()
             />
           </RouterLink>
         </div>
-        <nav class="space-x-2 mt-4 md:mt-0">
+        <nav class="space-x-2 mt-4 md:mt-0 md:text-right">
           <RouterLink
             :to="{ name: 'inicio' }"
             class="text-white uppercase font-bold"
@@ -37,6 +41,7 @@ const bebidasStore = useBebidasStore()
       </div>
 
       <form
+        @submit.prevent="handleSubmit"
         v-if="paginaInicio"
         class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6"
       >
