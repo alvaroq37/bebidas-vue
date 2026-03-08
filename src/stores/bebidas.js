@@ -1,14 +1,17 @@
 import { ref, onMounted, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import APIService from '@/service/APIService'
+import { useModalStore } from '@/stores/modal';
 
 export const useBebidasStore = defineStore('bebidas', () => {
+  const modalStore = useModalStore()
   const categorias = ref([])
   const busqueda = reactive({
     nombre: '',
     categoria: '',
   })
   const recetas = ref([])
+  const recetaSeleccionada = ref({})
   onMounted(async () => {
     try {
       const {
@@ -29,5 +32,18 @@ export const useBebidasStore = defineStore('bebidas', () => {
       console.error('Error fetching recipes:', error)
     }
   }
-  return { categorias, busqueda, obtenerRecetas, recetas }
+
+  async function seleccionarBebida(id) {
+    try {
+      const {
+        data: { drinks },
+      } = await APIService.obtenerReceta(id)
+      recetaSeleccionada.value = drinks[0]
+      modalStore.handleClickModal()
+    } catch (error) {
+      console.error('Error fetching recipe details:', error)
+    }
+  }
+
+  return { categorias, busqueda, obtenerRecetas, recetas, seleccionarBebida, recetaSeleccionada }
 })

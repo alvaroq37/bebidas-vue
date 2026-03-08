@@ -15,4 +15,11 @@ export default {
       console.error('Error fetching recipes:', error)
     }
   },
+  async obtenerReceta(id) {
+    try {
+      return await api.get(`/lookup.php?i=${id}`)
+    } catch (error) {
+      console.error('Error fetching recipe details:', error)
+    }
+  },
 }
