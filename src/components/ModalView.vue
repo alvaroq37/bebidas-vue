@@ -7,7 +7,6 @@ import { useFavoritosStore } from '@/stores/favoritos'
 const modalStore = useModalStore()
 const bebidasStore = useBebidasStore()
 const favoritosStore = useFavoritosStore()
-console.log(bebidasStore.recetaSeleccionada)
 </script>
 
 <template>
@@ -80,7 +79,7 @@ console.log(bebidasStore.recetaSeleccionada)
                   class="w-full rounded bg-orange-600 p-3 font-bold uppercase text-white shadow hover:bg-orange-500 transition-colors cursor-pointer"
                   @click="favoritosStore.handleClickFavoritos"
                 >
-                  Agregar a Favoritos
+                  {{ modalStore.textoBoton }}
                 </button>
               </div>
             </DialogPanel>

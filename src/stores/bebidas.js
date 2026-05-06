@@ -1,4 +1,4 @@
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
 import APIService from '@/service/APIService'
 import { useModalStore } from '@/stores/modal';
@@ -44,6 +44,7 @@ export const useBebidasStore = defineStore('bebidas', () => {
       console.error('Error fetching recipe details:', error)
     }
   }
+  const noRecetas = computed(() => recetas.value.length === 0)
 
-  return { categorias, busqueda, obtenerRecetas, recetas, seleccionarBebida, recetaSeleccionada }
+  return { categorias, busqueda, obtenerRecetas, recetas, seleccionarBebida, recetaSeleccionada, noRecetas }
 })
